@@ -68,8 +68,9 @@ export default function LegalNotice() {
       <h2>Données personnelles</h2>
       <p>
         Ce site ne dépose aucun cookie et ne collecte aucune donnée personnelle. La prise de
-        rendez-vous se fait sur un service externe :{" "}
-        <Value value={pending("nom du service de réservation et lien vers sa politique de confidentialité")} />
+        rendez-vous se fait sur un service externe, Cal.com, qui traite le nom, l&apos;adresse
+        e-mail et la description du besoin saisis lors de la réservation. Voir sa{" "}
+        <a href="https://cal.com/privacy" rel="noopener">politique de confidentialité</a>.
       </p>
       <p>
         Une réclamation peut être adressée à la Commission nationale de l&apos;informatique et des
