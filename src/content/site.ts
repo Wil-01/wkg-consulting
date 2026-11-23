@@ -21,6 +21,7 @@ export const site = {
 export const booking = {
   url: process.env.NEXT_PUBLIC_BOOKING_URL ?? null,
   label: "Réserver un appel de 15 minutes",
+  fallbackLabel: "Le calendrier ne s'affiche pas ? Ouvrir la page de réservation",
   intro:
     "Quinze minutes pour savoir si c'est faisable et à quel ordre de grandeur. " +
     "La page de réservation vous demande ce qui coince aujourd'hui : l'appel commence par là.",

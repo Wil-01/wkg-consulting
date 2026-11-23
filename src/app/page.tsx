@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { BookingEmbed } from "@/components/BookingEmbed";
 import { BookingLink } from "@/components/BookingLink";
 import { Value } from "@/components/Value";
 import {
@@ -164,7 +165,16 @@ export default function Home() {
           <SectionHead index="5" title="Contact" />
           <p>{booking.intro}</p>
           <p className="candor">{booking.candor}</p>
-          <BookingLink />
+          {booking.url ? (
+            <div id="reserver" className="booking">
+              <BookingEmbed url={booking.url} />
+              <p className="booking__fallback">
+                <BookingLink variant="text" target="external" />
+              </p>
+            </div>
+          ) : (
+            <BookingLink />
+          )}
         </section>
       </main>
 

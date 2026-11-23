@@ -67,9 +67,11 @@ export default function LegalNotice() {
 
       <h2>Données personnelles</h2>
       <p>
-        Ce site ne dépose aucun cookie et ne collecte aucune donnée personnelle. La prise de
-        rendez-vous se fait sur un service externe, Cal.com, qui traite le nom, l&apos;adresse
-        e-mail et la description du besoin saisis lors de la réservation. Voir sa{" "}
+        Le site lui-même ne dépose aucun cookie et ne collecte aucune donnée personnelle. Le
+        calendrier de réservation de la section Contact est fourni par un service externe,
+        Cal.com, et chargé depuis ses serveurs lorsque cette section s&apos;affiche : Cal.com
+        reçoit alors les données techniques de connexion, puis, en cas de réservation, le nom,
+        l&apos;adresse e-mail et la description du besoin. Voir sa{" "}
         <a href="https://cal.com/privacy" rel="noopener">politique de confidentialité</a>.
       </p>
       <p>

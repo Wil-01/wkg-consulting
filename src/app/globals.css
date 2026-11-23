@@ -306,6 +306,34 @@ main {
   color: var(--ink-soft);
 }
 
+/* --- booking --- */
+.booking {
+  scroll-margin-top: 16px;
+}
+.booking-embed {
+  min-height: 520px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  overflow: hidden;
+}
+.booking-embed__placeholder {
+  margin: 0;
+  padding: 24px;
+  font-family: var(--font-mono-stack);
+  font-size: 0.875rem;
+  color: var(--ink-soft);
+}
+.booking__fallback {
+  margin-top: 12px;
+}
+.button.button--text {
+  padding: 0;
+  border: 0;
+  font-size: 0.875rem;
+  text-decoration: underline;
+  color: var(--blueprint);
+}
+
 /* --- contact --- */
 .section--contact p {
   max-width: var(--measure);
