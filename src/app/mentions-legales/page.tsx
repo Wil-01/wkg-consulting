@@ -14,7 +14,7 @@ export const metadata: Metadata = { title: `Mentions légales — ${site.name}` 
 export const revalidate = 86400;
 
 export default async function LegalNotice() {
-  let id = await loadIdentity();
+  const id = await loadIdentity();
   return (
     <main className="section legal">
       <p>

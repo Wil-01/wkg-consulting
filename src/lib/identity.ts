@@ -20,9 +20,9 @@ export type Identity = {
 export const IDENTITY_URL = "https://www.motis.fit/identite-legale.json";
 
 export async function loadIdentity(): Promise<Identity> {
-  let res = await fetch(IDENTITY_URL, { next: { revalidate: 86400 } });
+  const res = await fetch(IDENTITY_URL, { next: { revalidate: 86400 } });
   if (!res.ok) throw new Error(`Publisher identity unavailable (${res.status}) at ${IDENTITY_URL}`);
-  let id = (await res.json()) as Identity;
+  const id = (await res.json()) as Identity;
   if (!id?.siren || !id?.address || !id?.name) throw new Error("Publisher identity incomplete");
   return id;
 }
