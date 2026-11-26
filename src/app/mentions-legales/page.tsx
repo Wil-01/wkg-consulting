@@ -2,14 +2,19 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Value } from "@/components/Value";
 import { pending, site } from "@/content/site";
+import { displayPhone, loadIdentity } from "@/lib/identity";
 
 export const metadata: Metadata = { title: `Mentions légales — ${site.name}` };
 
 // Source: gomuscu/motis/docs/juridique/mentions-legales.md (reference version).
 // Common with MOTIS: publisher identity, SIREN, address, contact, IP, applicable law, mediation.
 // Specific to WKG: hosting, no third-party data sources, no "Professionnels présents dans MOTIS".
-// Any change to the common part must be mirrored on MOTIS — flag it, don't do it alone.
-export default function LegalNotice() {
+// Common part: the publisher identity is READ from MOTIS (lib/identity.ts), never copied here (2026-11-26).
+// Only VAT and the consumer mediator remain pending, as on MOTIS.
+export const revalidate = 86400;
+
+export default async function LegalNotice() {
+  let id = await loadIdentity();
   return (
     <main className="section legal">
       <p>
@@ -19,31 +24,24 @@ export default function LegalNotice() {
 
       <h2>Éditeur du site</h2>
       <p>
-        Le site {site.name} est édité par <strong>Williams KOUTON GODONOU</strong>, entrepreneur
-        individuel.
+        Le site {site.name} est édité par <strong>{id.name}</strong>, {id.legalForm.toLowerCase()}, sous
+        le nom commercial <strong>{id.tradeName}</strong>.
       </p>
       <ul>
+        <li>Adresse : {id.address}</li>
+        <li>Numéro SIREN : {id.siren}</li>
+        <li>Numéro SIRET (établissement principal) : {id.siret}</li>
+        <li>Code APE / NAF : {id.ape}</li>
+        <li>Immatriculation : {id.registration}</li>
         <li>
-          Adresse : <Value value={pending("adresse professionnelle — en attente de l'immatriculation")} />
+          TVA : <Value value={id.vat ?? pending("numéro intracommunautaire, ou « TVA non applicable, article 293 B du CGI »")} />
         </li>
+        <li>Téléphone : {displayPhone(id.phone)}</li>
         <li>
-          Numéro SIREN : <Value value={pending("en attente de l'immatriculation")} />
-        </li>
-        <li>
-          Numéro SIRET : <Value value={pending("en attente de l'immatriculation")} />
-        </li>
-        <li>
-          Code APE / NAF : <Value value={pending("en attente de l'immatriculation")} />
-        </li>
-        <li>
-          TVA : <Value value={pending("numéro intracommunautaire, ou « TVA non applicable, article 293 B du CGI »")} />
-        </li>
-        <li>Téléphone : 07 59 55 90 53</li>
-        <li>
-          Courriel : <Value value={pending("adresse de contact WKG")} />
+          Courriel : <a href={`mailto:${id.email.wkg}`}>{id.email.wkg}</a>
         </li>
       </ul>
-      <p>Responsable de la publication : Williams KOUTON GODONOU.</p>
+      <p>Responsable de la publication : {id.name}.</p>
 
       <h2>Hébergement</h2>
       <p>
@@ -83,7 +81,7 @@ export default function LegalNotice() {
       <p>
         Conformément à l&apos;article L612-1 du Code de la consommation, le consommateur peut
         recourir gratuitement au service de médiation suivant en cas de litige :{" "}
-        <Value value={pending("nom, adresse et site du médiateur retenu (commun avec MOTIS)")} />
+        <Value value={id.mediator ?? pending("nom, adresse et site du médiateur retenu (commun avec MOTIS)")} />
       </p>
 
       <h2>Droit applicable</h2>
